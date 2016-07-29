@@ -10,7 +10,8 @@ def get_next_link(link):
     r = requests.get(link)
     soup = bs(r.text, "html5lib")
     elm = soup.find('div',{'class':'pager'})
-    next_ = elm.findNext('a')
+    finding = elm.findNext ('li',{'class':'pager-current first'})
+    next_ = finding.findNext('a')
     next_page_link = base_url + next_['href']
     if next_page_link:
         print next_page_link
