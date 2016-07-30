@@ -5,6 +5,9 @@ import re
 import urlparse
 from bs4 import BeautifulSoup as bs
 import time
+from dulwich.repo import Repo
+from os import mkdir
+import sys
 
 #lists of pdf pages per site
 list_Of_UNOCHA = ['http://www.unocha.org' , 'http://www.unocha.org/about-us/strategic-plan', 'http://www.unocha.org/about-us/publications', 'http://www.unocha.org/about-us/publications/humanitarian-reports', 'http://www.reliefweb.int/updates?sl=environment-report_listing%252Ctaxonomy_index_tid_source-1503%252Ctaxonomy_index_tid_content_format-8']
@@ -50,7 +53,7 @@ while True: #infinite loop
                 else:
                     file_name = item[www+2:dotsomething]
                                         
-                print file_name
+                #print file_name
                 
                 outfile = open('./' + file_name + '.csv', "ab")
                 writer = csv.writer(outfile)
@@ -58,7 +61,30 @@ while True: #infinite loop
                 #final_list.append(clean_url)
 
     #print final_list                                                                                    #remove '#' at beginning of line to print all pdf urls
+    #auto commit
+    repo = Repo("unscraper")
+    repo
+    
+    index = repo.open_index()
+    print(index.path.decode(sys.getfilesystemencoding()))
+    
+    list(index)
 
+    f = open('unscraper/thisIsATest.md','wb')
+    _ = f.write(b"monty")
+    f.close()
+
+    repo.stage([b"thisIsATest"])
+
+    print(",".join([f.decode(sys.getfilesystemencoding()) for f in repo.open_index()]))
+
+    commit_id = repo.do_commit(
+        b"testing dulwich", committer=b"Aly <alyzeinmohamed@gmail.com>")
+
+    repo.head() == commit_id
+    print ('**************************************************')
+    print ('******************batch complete******************')
+    print ('**************************************************')
     time.sleep(86400) #24hr time delay       
 #end of program
 
