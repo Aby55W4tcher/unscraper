@@ -1,0 +1,24 @@
+workingPaginationExample.py works with dabs.com
+once adapted to work with Reliefweb.int, the following error message appears:
+
+pi@raspberrypi:~/unscraper $ python paginationFunction.py
+https://www.reliefweb.inthttp://reliefweb.int/updates?source=1503&format=8&page=1#content
+Traceback (most recent call last):
+  File "paginationFunction.py", line 22, in <module>
+    get_next_link(url)
+  File "paginationFunction.py", line 20, in get_next_link
+    get_next_link(next_page_link)
+  File "paginationFunction.py", line 10, in get_next_link
+    r = requests.get(link)
+  File "/usr/lib/python2.7/dist-packages/requests/api.py", line 60, in get
+    return request('get', url, **kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/api.py", line 49, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/sessions.py", line 457, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/sessions.py", line 569, in send
+    r = adapter.send(request, **kwargs)
+  File "/usr/lib/python2.7/dist-packages/requests/adapters.py", line 407, in send
+    raise ConnectionError(err, request=request)
+requests.exceptions.ConnectionError: ('Connection aborted.', gaierror(-2, 'Name or service not known'))
+pi@raspberrypi:~/unscraper $ 
